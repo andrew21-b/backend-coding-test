@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "sales-migration-test"
-version = "0.1.0"
+name = "backend-coding-test"
+version = "1.0"
 description = "Intropy Backend Engineer Tech Test"
-authors = ["Intropy"]
+authors = ["Andrew Boateng"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.104.0"""
+fastapi = "^0.104.0"
 sqlmodel = "^0.0.14"
 alembic = "^1.12.0"
 psycopg2-binary = "^2.9.7"
