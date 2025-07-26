@@ -1,10 +1,12 @@
+import structlog
 from datetime import datetime, date
 from decimal import Decimal
 from typing import Optional
 from sqlmodel import SQLModel, Field,Boolean,  create_engine, Session, select, Column
 from sqlalchemy import Index, text, String, DateTime, Numeric
-from fastapi import FastAPI
-import structlog
+from fastapi import APIRouter, FastAPI
+from app.context.config import Settings
+from app.controller.v1.endpoints import health
 
 
 
@@ -28,12 +30,10 @@ structlog.configure(
 
 log = structlog.get_logger()
 
-# Database configuration
-DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/intropy-test"
 
 # Create engine only when needed (not during imports for Alembic)
 def get_engine():
-    return create_engine(DATABASE_URL, echo=True)
+    return create_engine(Settings.DATABASE_URL, echo=True)
 
 def get_session():
     engine = get_engine()
@@ -41,11 +41,19 @@ def get_session():
         yield session
 
 # FastAPI app
-app = FastAPI(title="Customer API", version="0.1.0")
+app = FastAPI(title=Settings.PROJECT_NAME, version=Settings.VERSION)
+
+api_router = APIRouter(prefix="/v1")
+
+api_router.include_router(health.router, tags=["Health"])
+
+app.include_router(api_router)
 
 @app.get("/")
 async def root():
-    return {"message": "Customer API", "status": "running"}
+    return {"message": Settings.PROJECT_NAME, "status": "running"}
+
+
 
 if __name__ == "__main__":
     import uvicorn
