@@ -14,10 +14,12 @@ pandas = "^2.1.0"
 google-cloud-storage = "^2.10.0"
 uvicorn = "^0.24.0"
 structlog = "^23.2.0"
+pydantic-settings = "^2.10.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
 ruff = "^0.1.0"
+ipykernel = "^6.30.0"
 
 [build-system]
 requires = ["poetry-core"]
