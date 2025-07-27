@@ -31,15 +31,6 @@ structlog.configure(
 log = structlog.get_logger()
 
 
-# Create engine only when needed (not during imports for Alembic)
-def get_engine():
-    return create_engine(Settings.DATABASE_URL, echo=True)
-
-def get_session():
-    engine = get_engine()
-    with Session(engine) as session:
-        yield session
-
 # FastAPI app
 app = FastAPI(title=Settings.PROJECT_NAME, version=Settings.VERSION)
 
