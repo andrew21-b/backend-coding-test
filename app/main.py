@@ -1,12 +1,7 @@
 import structlog
-from datetime import datetime, date
-from decimal import Decimal
-from typing import Optional
-from sqlmodel import SQLModel, Field,Boolean,  create_engine, Session, select, Column
-from sqlalchemy import Index, text, String, DateTime, Numeric
-from fastapi import APIRouter, FastAPI
-from app.context.config import Settings
-from app.controller.v1.endpoints import health
+from fastapi import FastAPI
+from app.context.config import settings
+from app.controller.v1.routes import api_router
 
 
 
@@ -32,17 +27,13 @@ log = structlog.get_logger()
 
 
 # FastAPI app
-app = FastAPI(title=Settings.PROJECT_NAME, version=Settings.VERSION)
+app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
 
-api_router = APIRouter(prefix="/v1")
-
-api_router.include_router(health.router, tags=["Health"])
-
-app.include_router(api_router)
+app.include_router(api_router, prefix="/api/v1")
 
 @app.get("/")
 async def root():
-    return {"message": Settings.PROJECT_NAME, "status": "running"}
+    return {"message": settings.PROJECT_NAME, "status": "running"}
 
 
 
