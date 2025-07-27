@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, Boolean, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from app.models.query import Base
+from app.models.base import Base
 
 class Layout(Base):
     __tablename__ = "layouts"

@@ -1,8 +1,6 @@
 from sqlalchemy import Column, String, Text
-from sqlalchemy.orm import DeclarativeBase,relationship
-
-class Base(DeclarativeBase):
-    pass
+from sqlalchemy.orm import relationship
+from app.models.base import Base
 
 class Query(Base):
     __tablename__ = "queries"
