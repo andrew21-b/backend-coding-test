@@ -1,7 +1,6 @@
 from logging.config import fileConfig
 from app.context.config import Settings
 from app.models.base import Base
-from app.models.layout import Layout
 from app.models.metric import Metric
 from app.models.query import Query
 from sqlalchemy import engine_from_config
